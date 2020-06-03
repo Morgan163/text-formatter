@@ -15,13 +15,13 @@ class ParsingRulesServiceImpl : ParsingRulesService {
         val rules = mutableListOf<Rule>()
         ruleStrings.forEach {
             val newRule = parseRule(it)
-            require(isIntervalsNotCrossing(rules, newRule)) { "Rule intervals must not crossing" }
+            require(intervalsNotCrossing(rules, newRule)) { "Rule intervals must not crossing" }
             rules.add(newRule)
         }
         return rules
     }
 
-    private fun isIntervalsNotCrossing(rules: List<Rule>, newRule: Rule): Boolean {
+    private fun intervalsNotCrossing(rules: List<Rule>, newRule: Rule): Boolean {
         rules.forEach {
             if (newRule.startPosition <= it.endPosition && newRule.endPosition >= it.startPosition) {
                 return false
