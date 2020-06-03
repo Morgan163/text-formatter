@@ -26,8 +26,7 @@ class LinkRuleHandlerService : RuleHandlerService {
         validateRule(rule, sourceString)
 
         val handleSubstring = sourceString.substring(IntRange(rule.startPosition, rule.endPosition - 1))
-        val startIndexForIndexOf = handledString.length - sourceString.length + rule.startPosition
-        var startSubstringIndex = handledString.indexOf(handleSubstring, startIndexForIndexOf)
+        var startSubstringIndex = getSubstringIndex(handledString, sourceString, rule, handleSubstring)
         val result = handledString.delete(startSubstringIndex, startSubstringIndex + handleSubstring.length)
         if (startSubstringIndex > result.length) {
             startSubstringIndex = result.length - 1
