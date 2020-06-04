@@ -24,7 +24,7 @@ class TwitterUsernameRuleHandler(
     }
 
     private fun handleRule(rule: Rule, handledString: StringBuilder, sourceString: String): StringBuilder {
-        val handleSubstring = sourceString.substring(IntRange(rule.startPosition + 1, rule.endPosition - 1))
+        val handleSubstring = sourceString.substring(rule.startPosition + 1, rule.endPosition)
         return textChanger.changeText(
             rule, handledString, sourceString, handleSubstring,
             """<a href="http://twitter.com/$handleSubstring">$handleSubstring</a>"""
