@@ -3,11 +3,14 @@ package com.example.test.handlers.impl
 import com.example.test.domain.Concept
 import com.example.test.domain.Rule
 import com.example.test.handlers.RuleHandler
+import com.example.test.handlers.TextChanger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-class TwitterUsernameRuleHandler : RuleHandler {
+class TwitterUsernameRuleHandler(
+    private val textChanger: TextChanger
+) : RuleHandler {
 
     val log = LoggerFactory.getLogger(TwitterUsernameRuleHandler::class.java)
 
@@ -22,13 +25,9 @@ class TwitterUsernameRuleHandler : RuleHandler {
 
     private fun handleRule(rule: Rule, handledString: StringBuilder, sourceString: String): StringBuilder {
         val handleSubstring = sourceString.substring(IntRange(rule.startPosition + 1, rule.endPosition - 1))
-        var startSubstringIndex = getSubstringIndex(handledString, sourceString, rule, handleSubstring)
-        val result = handledString.delete(startSubstringIndex, startSubstringIndex + handleSubstring.length)
-        if (startSubstringIndex > result.length) {
-            startSubstringIndex = result.length - 1
-        }
-        return result.insert(
-            startSubstringIndex, "$OPEN_LINK_TAG " +
+        return textChanger.changeText(
+            rule, handledString, sourceString, handleSubstring,
+            "$OPEN_LINK_TAG " +
                 "$HREF\"$TWITTER_URL$handleSubstring\">$handleSubstring$CLOSE_LINK_TAG"
         )
     }
