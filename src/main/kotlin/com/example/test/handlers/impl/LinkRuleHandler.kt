@@ -21,8 +21,6 @@ class LinkRuleHandler : RuleHandler {
     }
 
     private fun handleRule(rule: Rule, handledString: StringBuilder, sourceString: String): StringBuilder {
-        validateRule(rule, sourceString)
-
         val handleSubstring = sourceString.substring(IntRange(rule.startPosition, rule.endPosition - 1))
         var startSubstringIndex = getSubstringIndex(handledString, sourceString, rule, handleSubstring)
         val result = handledString.delete(startSubstringIndex, startSubstringIndex + handleSubstring.length)

@@ -10,14 +10,6 @@ interface RuleHandler {
 
     fun handleRule(rule: Rule, sourceString: String, result: String): String
 
-    fun validateRule(rule: Rule, sourceString: String) {
-        require(rule.startPosition < sourceString.length) { "Start position greater than text length" }
-        require(rule.endPosition <= sourceString.length) { "End position greater than text length" }
-        require(rule.startPosition < rule.endPosition) { "Start position greater than end position" }
-        require(rule.startPosition >= 0) { "Start position must not be less than zero " }
-        require(rule.endPosition >= 0) { "End position must not be less than zero " }
-    }
-
     fun getSubstringIndex(
         handledString: StringBuilder,
         sourceString: String,

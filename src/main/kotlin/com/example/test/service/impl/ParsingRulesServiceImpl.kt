@@ -14,9 +14,7 @@ class ParsingRulesServiceImpl : ParsingRulesService {
     override fun parseRules(ruleStrings: List<String>): List<Rule> {
         val rules = mutableListOf<Rule>()
         ruleStrings.forEach {
-            val newRule = parseRule(it)
-            require(intervalsNotCrossing(rules, newRule)) { "Rule intervals must not crossing" }
-            rules.add(newRule)
+            rules.add(parseRule(it))
         }
         return rules
     }

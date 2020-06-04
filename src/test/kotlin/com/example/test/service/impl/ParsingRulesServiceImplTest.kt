@@ -68,22 +68,4 @@ internal class ParsingRulesServiceImplTest {
             parsingRulesServiceImpl.parseRules(listOf(input1, input2))
         }
     }
-
-    @Test
-    fun `parsing rule must throw exception about crossing`() {
-        val input1 = "positions 8 through 25 - Link"
-        val input2 = "positions 15 through 20 - Entity"
-        assertThrows(IllegalArgumentException::class.java) {
-            parsingRulesServiceImpl.parseRules(listOf(input1, input2))
-        }
-    }
-
-    @Test
-    fun `parsing rule must throw exception about crossing 2`() {
-        val input1 = "positions 8 through 25 - Link"
-        val input2 = "positions 15 through 40 - Entity"
-        assertThrows(IllegalArgumentException::class.java) {
-            parsingRulesServiceImpl.parseRules(listOf(input1, input2))
-        }
-    }
 }
