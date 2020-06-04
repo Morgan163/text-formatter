@@ -1,8 +1,7 @@
-package com.example.test.service.impl
+package com.example.test.handlers.impl
 
 import com.example.test.domain.Concept
 import com.example.test.domain.Rule
-import com.example.test.handlers.impl.EntityRuleHandler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
