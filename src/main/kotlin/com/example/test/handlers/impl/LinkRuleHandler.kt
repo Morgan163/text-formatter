@@ -27,14 +27,7 @@ class LinkRuleHandler(
         val handleSubstring = sourceString.substring(IntRange(rule.startPosition, rule.endPosition - 1))
         return textChanger.changeText(
             rule, handledString, sourceString, handleSubstring,
-            "$OPEN_LINK_TAG " +
-                "$HREF\"$handleSubstring\">$handleSubstring$CLOSE_LINK_TAG"
+            """<a href="$handleSubstring">$handleSubstring</a>"""
         )
-    }
-
-    companion object {
-        const val OPEN_LINK_TAG = "<a"
-        const val CLOSE_LINK_TAG = "</a>"
-        const val HREF = "href="
     }
 }
