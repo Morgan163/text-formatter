@@ -29,8 +29,8 @@ internal class FormatTextControllerIT {
         val result = testRestTemplate.postForEntity("/api/v1/format-text", request, String::class.java)
         Assertions.assertEquals(HttpStatus.OK, result.statusCode)
         Assertions.assertEquals(
-            "<strong>Obama</strong> visited <strong>Facebook</strong> headquaters:" +
-                " <a href=\"ref\">ref</a> @<a href=\"http://twitter.com/username\">username</a>",
+            """<strong>Obama</strong> visited <strong>Facebook</strong> headquaters:""" +
+                """ <a href="ref">ref</a> @<a href="http://twitter.com/username">username</a>""",
             result.body
         )
     }

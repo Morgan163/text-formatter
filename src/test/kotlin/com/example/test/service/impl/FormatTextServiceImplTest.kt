@@ -20,8 +20,8 @@ internal class FormatTextServiceImplTest {
         val input5 = "positions 7 through 10 - Hashtag"
         val result = formatTextServiceImpl.formatText(input, listOf(input1, input2, input3, input4, input5))
         assertEquals(
-            "<strong>Obama</strong> visited <strong>Facebook</strong> headquaters:" +
-                " <a href=\"ref\">ref</a> @<a href=\"http://twitter.com/username\">username</a>", result
+            """<strong>Obama</strong> visited <strong>Facebook</strong> headquaters:""" +
+                """ <a href="ref">ref</a> @<a href="http://twitter.com/username">username</a>""", result
         )
     }
 
@@ -35,8 +35,8 @@ internal class FormatTextServiceImplTest {
         val input5 = "positions 8 through 10 - Hashtag"
         val result = formatTextServiceImpl.formatText(input, listOf(input1, input2, input3, input4, input5))
         assertEquals(
-            "<strong>Obama</strong> visited F<a href=\"http://twitter.com/acebook\">acebook</a> headquaters:" +
-                " <a href=\"ref\">ref</a> <strong>@username</strong>", result
+            """<strong>Obama</strong> visited F<a href="http://twitter.com/acebook">acebook</a> headquaters:""" +
+                """ <a href="ref">ref</a> <strong>@username</strong>""", result
         )
     }
 
@@ -50,8 +50,8 @@ internal class FormatTextServiceImplTest {
         val input5 = "positions 25 through 30 - Link"
         val result = formatTextServiceImpl.formatText(input, listOf(input1, input2, input3, input4, input5))
         assertEquals(
-            "<strong>Obama</strong> obama <strong>Obama</strong> obama:" +
-                " <a href=\"obama\">obama</a> @<a href=\"http://twitter.com/obama\">obama</a>", result
+            """<strong>Obama</strong> obama <strong>Obama</strong> obama:""" +
+                """ <a href="obama">obama</a> @<a href="http://twitter.com/obama">obama</a>""", result
         )
     }
 }

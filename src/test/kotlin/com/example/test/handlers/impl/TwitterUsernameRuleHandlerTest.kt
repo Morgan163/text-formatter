@@ -18,7 +18,7 @@ internal class TwitterUsernameRuleHandlerTest {
         val rule1 = Rule(Concept.TWITTER_USERNAME, 40, 49)
         val result = twitterUsernameRuleHandlerService.handleRule(rule1, input, input)
         assertEquals(
-            "Obama visited Facebook headquaters: ref @<a href=\"http://twitter.com/username\">username</a>",
+            """Obama visited Facebook headquaters: ref @<a href="http://twitter.com/username">username</a>""",
             result
         )
     }

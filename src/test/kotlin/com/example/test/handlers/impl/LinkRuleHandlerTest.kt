@@ -18,7 +18,7 @@ internal class LinkRuleHandlerTest {
         val rule1 = Rule(Concept.LINK, 36, 39)
         val result = linkRuleHandlerService.handleRule(rule1, input, input)
         assertEquals(
-            "Obama visited Facebook headquaters: <a href=\"ref\">ref</a> @username",
+            """Obama visited Facebook headquaters: <a href="ref">ref</a> @username""",
             result
         )
     }
