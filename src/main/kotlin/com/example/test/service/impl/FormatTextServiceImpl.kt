@@ -3,7 +3,6 @@ package com.example.test.service.impl
 import com.example.test.service.FormatTextService
 import com.example.test.service.ParsingRulesService
 import com.example.test.service.RuleHandlerService
-import org.apache.commons.text.StringEscapeUtils
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
@@ -17,9 +16,9 @@ class FormatTextServiceImpl(
 
     override fun formatText(text: String, rules: List<String>): String {
         val parsedRules = parsingRulesService.parseRules(rules)
-        var result = StringEscapeUtils.escapeHtml4(text)
-        ruleHandlers.forEach {
-            result = it.handleRules(parsedRules, text, result)
+        var result = text
+        parsedRules.sortedBy { it.startPosition }.forEach { rule ->
+            result = ruleHandlers.firstOrNull { it.supported(rule.concept) }?.handleRule(rule, text, result) ?: result
         }
         log.info("Result: $result")
         return result

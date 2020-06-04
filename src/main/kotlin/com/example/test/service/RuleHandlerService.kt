@@ -1,11 +1,14 @@
 package com.example.test.service
 
+import com.example.test.domain.Concept
 import com.example.test.domain.Rule
 import java.lang.StringBuilder
 
 interface RuleHandlerService {
 
-    fun handleRules(rules: List<Rule>, sourceString: String, result: String): String
+    fun supported(concept: Concept): Boolean
+
+    fun handleRule(rule: Rule, sourceString: String, result: String): String
 
     fun validateRule(rule: Rule, sourceString: String) {
         require(rule.startPosition < sourceString.length) { "Start position greater than text length" }

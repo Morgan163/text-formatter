@@ -5,20 +5,18 @@ import com.example.test.domain.Rule
 import com.example.test.service.RuleHandlerService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.lang.StringBuilder
 
 @Service
 class EntityRuleHandlerService : RuleHandlerService {
 
     val log = LoggerFactory.getLogger(EntityRuleHandlerService::class.java)
 
-    override fun handleRules(rules: List<Rule>, sourceString: String, result: String): String {
-        var handledString = StringBuilder(result)
-        rules.filter { it.concept == Concept.ENTITY }
-            .forEach {
-                handledString = handleRule(it, handledString, sourceString)
-                log.debug("[EntityRuleHandlerService] result after handling rule = $it : $result")
-            }
+    override fun supported(concept: Concept): Boolean =
+        concept == Concept.ENTITY
+
+    override fun handleRule(rule: Rule, sourceString: String, result: String): String {
+        val handledString = handleRule(rule, StringBuilder(result), sourceString)
+        log.debug("[EntityRuleHandlerService] result after handling rule = $rule : $result")
         return handledString.toString()
     }
 

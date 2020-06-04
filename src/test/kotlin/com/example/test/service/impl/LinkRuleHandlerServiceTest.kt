@@ -17,8 +17,7 @@ internal class LinkRuleHandlerServiceTest {
     fun `handle link rule must work`() {
         val input = "Obama visited Facebook headquaters: ref @username"
         val rule1 = Rule(Concept.LINK, 36, 39)
-        val rule2 = Rule(Concept.ENTITY, 14, 22)
-        val result = linkRuleHandlerService.handleRules(listOf(rule1, rule2), input, input)
+        val result = linkRuleHandlerService.handleRule(rule1, input, input)
         assertEquals(
             "Obama visited Facebook headquaters: <a href=\"ref\">ref</a> @username",
             result
@@ -29,9 +28,8 @@ internal class LinkRuleHandlerServiceTest {
     fun `handle link rule must throw exception`() {
         val input = "Obama visited Facebook headquaters: ref @username"
         val rule1 = Rule(Concept.LINK, 50, 55)
-        val rule2 = Rule(Concept.ENTITY, 14, 22)
         assertThrows(IllegalArgumentException::class.java) {
-            linkRuleHandlerService.handleRules(listOf(rule1, rule2), input, input)
+            linkRuleHandlerService.handleRule(rule1, input, input)
         }
     }
 }

@@ -17,11 +17,20 @@ class EntityRuleHandlerServiceTest {
     fun `handle entity rule must work`() {
         val input = "Obama visited Facebook headquaters: ref @username"
         val rule1 = Rule(Concept.ENTITY, 0, 5)
-        val rule2 = Rule(Concept.ENTITY, 14, 22)
-        val rule3 = Rule(Concept.LINK, 7, 12)
-        val result = entityRuleHandlerService.handleRules(listOf(rule1, rule2, rule3), input, input)
+        val result = entityRuleHandlerService.handleRule(rule1, input, input)
         assertEquals(
-            "<strong>Obama</strong> visited <strong>Facebook</strong> headquaters: ref @username",
+            "<strong>Obama</strong> visited Facebook headquaters: ref @username",
+            result
+        )
+    }
+
+    @Test
+    fun `handle entity rule must work 2`() {
+        val input = "Obama visited Facebook headquaters: ref @username"
+        val rule2 = Rule(Concept.ENTITY, 14, 22)
+        val result = entityRuleHandlerService.handleRule(rule2, input, input)
+        assertEquals(
+            "Obama visited <strong>Facebook</strong> headquaters: ref @username",
             result
         )
     }
@@ -29,11 +38,9 @@ class EntityRuleHandlerServiceTest {
     @Test
     fun `handle entity rule must throw exception`() {
         val input = "Obama visited Facebook headquaters: ref @username"
-        val rule1 = Rule(Concept.ENTITY, 0, 5)
         val rule2 = Rule(Concept.ENTITY, 24, 22)
-        val rule3 = Rule(Concept.LINK, 7, 12)
         val exception = assertThrows(IllegalArgumentException::class.java) {
-            entityRuleHandlerService.handleRules(listOf(rule1, rule2, rule3), input, input)
+            entityRuleHandlerService.handleRule(rule2, input, input)
         }
         assertEquals("Start position greater than end position", exception.message)
     }

@@ -5,20 +5,18 @@ import com.example.test.domain.Rule
 import com.example.test.service.RuleHandlerService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import java.lang.StringBuilder
 
 @Service
 class LinkRuleHandlerService : RuleHandlerService {
 
     val log = LoggerFactory.getLogger(LinkRuleHandlerService::class.java)
 
-    override fun handleRules(rules: List<Rule>, sourceString: String, result: String): String {
-        var handledString = StringBuilder(result)
-        rules.filter { it.concept == Concept.LINK }
-            .forEach {
-                handledString = handleRule(it, handledString, sourceString)
-                log.debug("[LinkRuleHandlerService] result after handling rule = $it : $handledString")
-            }
+    override fun supported(concept: Concept): Boolean =
+        concept == Concept.LINK
+
+    override fun handleRule(rule: Rule, sourceString: String, result: String): String {
+        val handledString = handleRule(rule, StringBuilder(result), sourceString)
+        log.debug("[LinkRuleHandlerService] result after handling rule = $rule : $handledString")
         return handledString.toString()
     }
 
