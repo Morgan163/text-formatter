@@ -1,29 +1,29 @@
-package com.example.test.service.impl
+package com.example.test.handlers.impl
 
 import com.example.test.domain.Concept
 import com.example.test.domain.Rule
-import com.example.test.service.RuleHandlerService
+import com.example.test.handlers.RuleHandler
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
-class LinkRuleHandlerService : RuleHandlerService {
+@Component
+class TwitterUsernameRuleHandler : RuleHandler {
 
-    val log = LoggerFactory.getLogger(LinkRuleHandlerService::class.java)
+    val log = LoggerFactory.getLogger(TwitterUsernameRuleHandler::class.java)
 
     override fun supported(concept: Concept): Boolean =
-        concept == Concept.LINK
+        concept == Concept.TWITTER_USERNAME
 
     override fun handleRule(rule: Rule, sourceString: String, result: String): String {
         val handledString = handleRule(rule, StringBuilder(result), sourceString)
-        log.debug("[LinkRuleHandlerService] result after handling rule = $rule : $handledString")
+        log.debug("[TwitterUsernameRuleHandlerService] result after handling rule = $rule : $handledString")
         return handledString.toString()
     }
 
     private fun handleRule(rule: Rule, handledString: StringBuilder, sourceString: String): StringBuilder {
         validateRule(rule, sourceString)
 
-        val handleSubstring = sourceString.substring(IntRange(rule.startPosition, rule.endPosition - 1))
+        val handleSubstring = sourceString.substring(IntRange(rule.startPosition + 1, rule.endPosition - 1))
         var startSubstringIndex = getSubstringIndex(handledString, sourceString, rule, handleSubstring)
         val result = handledString.delete(startSubstringIndex, startSubstringIndex + handleSubstring.length)
         if (startSubstringIndex > result.length) {
@@ -31,7 +31,7 @@ class LinkRuleHandlerService : RuleHandlerService {
         }
         return result.insert(
             startSubstringIndex, "$OPEN_LINK_TAG " +
-                "$HREF\"$handleSubstring\">$handleSubstring$CLOSE_LINK_TAG"
+                "$HREF\"$TWITTER_URL$handleSubstring\">$handleSubstring$CLOSE_LINK_TAG"
         )
     }
 
@@ -39,5 +39,6 @@ class LinkRuleHandlerService : RuleHandlerService {
         const val OPEN_LINK_TAG = "<a"
         const val CLOSE_LINK_TAG = "</a>"
         const val HREF = "href="
+        const val TWITTER_URL = "http://twitter.com/"
     }
 }

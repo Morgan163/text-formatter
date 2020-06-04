@@ -1,10 +1,10 @@
-package com.example.test.service
+package com.example.test.handlers
 
 import com.example.test.domain.Concept
 import com.example.test.domain.Rule
 import java.lang.StringBuilder
 
-interface RuleHandlerService {
+interface RuleHandler {
 
     fun supported(concept: Concept): Boolean
 

@@ -2,6 +2,7 @@ package com.example.test.service.impl
 
 import com.example.test.domain.Concept
 import com.example.test.domain.Rule
+import com.example.test.handlers.impl.TwitterUsernameRuleHandler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -9,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-internal class TwitterUsernameRuleHandlerServiceTest {
+internal class TwitterUsernameRuleHandlerTest {
     @Autowired
-    lateinit var twitterUsernameRuleHandlerService: TwitterUsernameRuleHandlerService
+    lateinit var twitterUsernameRuleHandlerService: TwitterUsernameRuleHandler
 
     @Test
     fun `handle username rule must work`() {

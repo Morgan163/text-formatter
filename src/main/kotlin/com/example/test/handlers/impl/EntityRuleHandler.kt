@@ -1,15 +1,15 @@
-package com.example.test.service.impl
+package com.example.test.handlers.impl
 
 import com.example.test.domain.Concept
 import com.example.test.domain.Rule
-import com.example.test.service.RuleHandlerService
+import com.example.test.handlers.RuleHandler
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
-class EntityRuleHandlerService : RuleHandlerService {
+@Component
+class EntityRuleHandler : RuleHandler {
 
-    val log = LoggerFactory.getLogger(EntityRuleHandlerService::class.java)
+    val log = LoggerFactory.getLogger(EntityRuleHandler::class.java)
 
     override fun supported(concept: Concept): Boolean =
         concept == Concept.ENTITY
