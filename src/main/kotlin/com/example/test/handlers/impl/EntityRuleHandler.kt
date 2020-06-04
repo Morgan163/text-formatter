@@ -24,14 +24,9 @@ class EntityRuleHandler(
     }
 
     private fun handleRule(rule: Rule, handledString: StringBuilder, sourceString: String): StringBuilder {
-        val handleSubstring = sourceString.substring(IntRange(rule.startPosition, rule.endPosition - 1))
+        val handleSubstring = sourceString.substring(rule.startPosition, rule.endPosition)
         return textChanger.changeText(
             rule, handledString, sourceString, handleSubstring,
-            "$OPEN_STRONG_TAG$handleSubstring$CLOSE_STRONG_TAG")
-    }
-
-    companion object {
-        const val OPEN_STRONG_TAG = "<strong>"
-        const val CLOSE_STRONG_TAG = "</strong>"
+            """<strong>$handleSubstring</strong>""")
     }
 }

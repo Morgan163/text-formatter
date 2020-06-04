@@ -36,7 +36,7 @@ class ParsingRulesServiceImpl : ParsingRulesService {
         requireNotNull(endPosition) { "End position should be digit" }
         val concept = Concept.valueOfConceptName(parts[2].trim())
         if (Concept.OTHER == concept) {
-            log.debug("Rule is not supported. Rule: $rule")
+            log.warn("Rule is not supported. Rule: $rule")
         }
         return Rule(concept, startPosition, endPosition)
     }
